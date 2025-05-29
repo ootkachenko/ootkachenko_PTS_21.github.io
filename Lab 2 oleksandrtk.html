@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KasterShop</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .top-bar {
+            background-color: #e0e0e0;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .top-bar-left {
+            display: flex;
+        }
+
+        .top-bar-left .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .top-bar-left .dropdown-btn {
+            color: #333;
+            text-decoration: none;
+            margin-right: 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .top-bar-left .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .top-bar-left .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .top-bar-left .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .top-bar-left .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar-right a {
+            color: #333;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+        .top-bar-right a:first-child{
+            margin-right: 0;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .header-middle {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .return-box {
+            background-color: #81ecec;
+            color: #2d3436;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            font-size: 0.9em;
+            text-decoration: none;
+        }
+
+        .return-box img {
+            height: 20px;
+            margin-right: 5px;
+        }
+
+        .address-info {
+            font-size: 0.8em;
+            text-align: right;
+            margin-right: 20px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 1.2em;
+        }
+        .header-right a:last-child {
+            margin-right: 0;
+        }
+
+        .main-nav {
+            background-color: #f0f0f0;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .main-nav li {
+            margin-right: 20px;
+        }
+
+        .main-nav li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .hero {
+            background-color: #f0f0f0;
+            padding: 40px 20px;
+            text-align: left;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .hero p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .why-us {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+
+        .why-us h3 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .why-us p {
+            line-height: 1.6;
+        }
+
+        /* Стилі для відеофону */
+        .video-background {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Займає всю висоту вікна */
+            overflow: hidden;
+            display: flex; /* Додано для центрування контенту */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-background video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Забезпечує правильне масштабування */
+            z-index: 1; /* Відео позаду контенту */
+        }
+
+        .video-overlay {
+            position: relative;
+            z-index: 2; /* Переконайтеся, що контент перед відео */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            /* Додайте фон, щоб текст був читабельним на відео */
+            background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий чорний */
+            border-radius: 8px; /* За бажанням, щоб фон мав заокруглені кути */
+            max-width: 80%; /* Обмежте ширину контенту, щоб не розтягувався на весь екран */
+        }
+
+        .video-overlay h2{
+            font-size: 3em;
+        }
+        .video-overlay p{
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-middle{
+                flex-direction: column;
+                margin-left: 0;
+                margin-top: 20px;
+            }
+            .address-info {
+                text-align: center;
+            }
+            .main-nav ul {
+                flex-direction: column;
+            }
+            .main-nav li {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            .hero h2{
+                font-size: 2em;
+            }
+            .hero p{
+                font-size: 1em;
+            }
+             .video-overlay h2{
+                font-size: 2em;
+            }
+            .video-overlay p{
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Про нас</a>
+                <div class="dropdown-content">
+                    <a href="#">Історія компанії</a>
+                    <a href="#">Наша команда</a>
+                    <a href="#">Вакансії</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Доставка, оплата, повернення</a>
+                <div class="dropdown-content">
+                    <a href="#">Умови доставки</a>
+                    <a href="#">Способи оплати</a>
+                    <a href="#">Політика повернення</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Контакти</a>
+                <div class="dropdown-content">
+                    <a href="#">Форма зворотнього зв'язку</a>
+                </div>
+            </div>
+        </div>
+        <div class="top-bar-right">
+            <a href="tel:+380676746508">+38 067 674 65 08</a>
+            <a href="mailto:kastetshop2025@gmail.com">kastetshop2025@gmail.com</a>
+        </div>
+    </div>
+    <header class="header">
+        <div class="logo">
+            <img src="завантаження.png" alt="KasterShop Logo">
+            <h1>KasterShop</h1>
+        </div>
+        <div class="header-middle">
+            <a href="#" class="return-box">
+                "Повернись живим"
+            </a>
+            <div class="address-info">
+                <span>Де ми знаходимося:</span><br>
+                <span>м. Львів, вул. Липинського 28</span><br>
+                <span>Пн - Нд 9:00-23:00</span>
+            </div>
+    </header>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#">Знижки</a></li>
+            <li><a href="#">Новинки</a></li>
+            <li><a href="#">Одяг</a></li>
+            <li><a href="#">Взуття</a></li>
+            <li><a href="#">Рюкзаки та сумки</a></li>
+            <li><a href="#">Аксесуари</a></li>
+        </ul>
+    </nav>
+    <main class="main-content">
+        <div class="video-background">
+            <video autoplay muted loop playsinline>
+                <source src="8306452-uhd_4096_2160_25fps.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay">
+                <h2>Про нас</h2>
+                <p>KastetShop – це більше, ніж просто магазин одягу. Це простір для тих, хто цінує стиль, свободу та індивідуальність. Ми підбираємо колекції, що поєднують якість, трендовий дизайн та комфорт, щоб ти міг висловлювати себе через одяг.</p>
+                <p>Наша місія – допомогти тобі знайти речі, які підкреслять твою унікальність. Ми ретельно відбираємо кожну модель, слідкуємо за останніми модними тенденціями, гарантуємо найкращу якість та тільки оригінальну продукцію.</p>
+                <p>Приєднуйся до KastetShop – місце, де стиль говорить за тебе.</p>
+            </div>
+        </div>
+        <div class="why-us">
+            <h3>Чому саме ми?</h3>
+            <p>Ми пропонуємо стильний і якісний одяг, який підкреслить вашу індивідуальність. Наші речі створені з любов'ю до деталей і комфорту.</p>
+            <p>Швидка доставка та приємний сервіс зроблять ваш шопінг ще кращим.</p>
+            <p>Обирайте найкраще – обирайте нас!</p>
+        </div>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Ціни на набори одягу</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f0f0; /* Light gray background for the whole page */
+        }
+        /* Custom background color for the section, similar to the image */
+        .bg-custom-purple {
+            background-color: #FFD700; /* Yellow background color */
+        }
+        /* Custom text color for titles in cards */
+        .text-custom-pink {
+            color: #A020F0; /* Vibrant pink/purple from the image */
+        }
+        /* Custom button style */
+        .btn-custom {
+            background-color: #A020F0; /* Vibrant pink/purple from the image */
+            transition: background-color 0.3s ease;
+        }
+        .btn-custom:hover {
+            background-color: #8A1ACD; /* Darker shade for hover effect */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="bg-custom-purple py-12">
+        <h2 class="text-4xl font-bold text-center text-white mb-10">Ціни на набори одягу</h2>
+        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6">
+
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center flex flex-col justify-between">
+                <div>
+                    <h3 class="text-2xl font-semibold text-custom-pink mb-2">Базовий набір</h3>
+                    <p class="text-gray-700 mb-4">Комфортний одяг для щоденного використання</p>
+                    <hr class="my-4 border-gray-200">
+                    <ul class="text-gray-600 space-y-2 mb-6 text-left mx-auto max-w-fit">
+                        <li><span class="font-medium">1x</span> футболка</li>
+                        <li><span class="font-medium">1x</span> шорти</li>
+                        <li><span class="font-medium">1x</span> кепка</li>
+                    </ul>
+                </div>
+                <div class="mt-auto">
+                    <p class="text-xl font-medium mb-4">Ціна: <span class="font-bold text-custom-pink">499 ₴</span></p>
+                    <button class="btn-custom text-white px-8 py-3 rounded-lg font-semibold shadow-md hover:shadow-lg">Замовити</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center flex flex-col justify-between">
+                <div>
+                    <h3 class="text-2xl font-semibold text-custom-pink mb-2">Повсякденний стиль</h3>
+                    <p class="text-gray-700 mb-4">Ідеально для міських прогулянок</p>
+                    <hr class="my-4 border-gray-200">
+                    <ul class="text-gray-600 space-y-2 mb-6 text-left mx-auto max-w-fit">
+                        <li><span class="font-medium">2x</span> футболки</li>
+                        <li><span class="font-medium">1x</span> джинси</li>
+                        <li><span class="font-medium">1x</span> світшот</li>
+                    </ul>
+                </div>
+                <div class="mt-auto">
+                    <p class="text-xl font-medium mb-4">Ціна: <span class="font-bold text-custom-pink">899 ₴</span></p>
+                    <button class="btn-custom text-white px-8 py-3 rounded-lg font-semibold shadow-md hover:shadow-lg">Замовити</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center flex flex-col justify-between">
+                <div>
+                    <h3 class="text-2xl font-semibold text-custom-pink mb-2">Преміум комплект</h3>
+                    <p class="text-gray-700 mb-4">Все для стильного образу</p>
+                    <hr class="my-4 border-gray-200">
+                    <ul class="text-gray-600 space-y-2 mb-6 text-left mx-auto max-w-fit">
+                        <li><span class="font-medium">3x</span> футболка</li>
+                        <li><span class="font-medium">2x</span> штани</li>
+                        <li><span class="font-medium">1x</span> куртка</li>
+                        <li><span class="font-medium">1x</span> аксесуар</li>
+                    </ul>
+                </div>
+                <div class="mt-auto">
+                    <p class="text-xl font-medium mb-4">Ціна: <span class="font-bold text-custom-pink">1,499 ₴</span></p>
+                    <button class="btn-custom text-white px-8 py-3 rounded-lg font-semibold shadow-md hover:shadow-lg">Замовити</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+
+  </div>
+</div>
+</div>
+    </main>
+<section class="warm-discounts">
+  <h2 class="section-title">Теплі знижки на сезон "Весна - Літо"</h2>
+  <p class="subtitle">Встигни придбати!</p>
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="product-image">
+        <img src="images.jpg" alt="Футболка Stone Island Wind Rose">
+        <button class="add-to-favorites"></button>
+      </div>
+      <h3 class="product-title">Футболка Stone Island Wind Rose</h3>
+      <p class="product-size">XS S M L XL</p>
+      <p class="product-price">
+        <span class="old-price">2100 грн.</span>
+        <span class="new-price">1399 грн.</span>
+      </p>
+    </div>
+    <div class="product-card">
+      <div class="product-image">
+        <img src="завантаження (1).jpg" alt="Футболка Stone Island Classic Logo">
+        <button class="add-to-favorites"></button>
+      </div>
+      <h3 class="product-title">Футболка Stone Island Classic Logo</h3>
+      <p class="product-size">XS S M L XL</p>
+      <p class="product-price">
+        <span class="old-price">1550 грн.</span>
+        <span class="new-price">900 грн.</span>
+      </p>
+      <p class="availability закінчується">Закінчується</p>
+    </div>
+    <div class="product-card">
+      <div class="product-image">
+        <img src="завантаження.jpg" alt="Футболка Stone Island Classic Dark">
+        <button class="add-to-favorites"></button>
+      </div>
+      <h3 class="product-title">Футболка Stone Island Classic Dark</h3>
+      <p class="product-size">XS S M L XL</p>
+      <p class="product-price">
+        <span class="old-price">2300 грн.</span>
+        <span class="new-price">1450 грн.</span>
+      </p>
+    </div>
+  </div>
+  <div class="button-container">
+    <a href="#" class="view-all-button">Більше футболок? Тисни ТУТ</a>
+  </div>
+</section>
+<style>
+.warm-discounts {
+  padding: 20px;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 24px;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.product-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  padding-bottom: 10px;
+  position: relative;
+  
+}
+
+.product-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+}
+
+.product-image img {
+  width: 100%;
+  display: block;
+}
+
+.add-to-favorites {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  
+}
+
+
+.product-title {
+  font-size: 18px;
+  color: #003366;
+  margin: 10px 15px;
+  text-align: left;
+}
+
+.product-size {
+  font-size: 14px;
+  color: #666;
+  margin: 0 15px;
+  text-align: left;
+}
+
+.product-price {
+  margin: 10px 15px;
+  text-align: left;
+}
+
+.old-price {
+  font-size: 16px;
+  color: #888;
+  text-decoration: line-through;
+  margin-right: 5px;
+}
+
+.new-price {
+  font-size: 20px;
+  color: #FF6600;
+  font-weight: bold;
+}
+
+.availability {
+  font-size: 12px;
+  color: #ff0000;
+  margin: 0 15px;
+  text-align: left;
+}
+.закінчується{
+  color: #ff0000;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.view-all-button {
+  background-color: #0066cc;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+}
+.view-all-button:hover{
+  background-color: #004080;
+}
+</style>
+<section class="warm-discounts">
+  <h2 class="section-title">Теплі знижки на сезон "Весна - Літо"</h2>
+  <p class="subtitle">Встигни придбати!</p>
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="product-image">
+        <img src="шорти 1.jpg" alt="Чоловічі шорти Guess Lime">
+        <button class="add-to-favorites"></button>
+      </div>
+      <h3 class="product-title">Чоловічі шорти Guess Lime</h3>
+      <p class="product-size">XS S M L XL</p>
+      <p class="product-price">
+        <span class="old-price">2990 грн.</span>
+        <span class="new-price">1490 грн.</span>
+      </p>
+    </div>
+    <div class="product-card">
+      <div class="product-image">
+        <img src="шорти.jpg" alt="Чоловічі шорти Guess Cream classic">
+        <button class="add-to-favorites"></button>
+      </div>
+      <h3 class="product-title">Чоловічі шорти Guess Cream classic</h3>
+      <p class="product-size">XS S M L XL</p>
+      <p class="product-price">
+        <span class="old-price">3150 грн.</span>
+        <span class="new-price">1850 грн.</span>
+      </p>
+    </div>
+    <div class="product-card">
+      <div class="product-image">
+        <img src="шорти 2.jpg" alt="Чоловічі шорти Tommy Hilfiger (B)">
+        <button class="add-to-favorites"></button>
+      </div>
+      <h3 class="product-title">Чоловічі шорти Tommy Hilfiger (B)</h3>
+      <p class="product-size">XS S M L XL</p>
+      <p class="product-price">
+        <span class="old-price">2550 грн.</span>
+        <span class="new-price">1750 грн.</span>
+      </p>
+      <p class="availability немає-в-наявності">Немає у наявності</p>
+    </div>
+  </div>
+  <div class="button-container">
+    <a href="#" class="view-all-button">Більше шортів? Тисни ТУТ</a>
+  </div>
+  
+  <h2 class="section-title">Взуття</h2>
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="product-image">
+        <img src="кросівки.jpg" alt="Кросівки чоловічі Nike Air Max Terrascape White">
+        <button class="add-to-favorites"></button>
+      </div>
+      <h3 class="product-title">Кросівки чоловічі Nike Air Max Terrascape White</h3>
+      <p class="product-size">Dq3977-100</p>
+      <p class="product-price">
+        <span class="old-price">11490 грн.</span>
+        <span class="new-price">7090 грн.</span>
+      </p>
+    </div>
+    <div class="product-card">
+      <div class="product-image">
+        <img src="кросівки 2.jpg" alt="Кросівки чоловічі New Balance Protection Pack 1002 Brown">
+        <button class="add-to-favorites"></button>
+      </div>
+      <h3 class="product-title">Кросівки чоловічі New Balance Protection Pack 1002 Brown</h3>
+      <p class="product-size">M2001RDN</p>
+      <p class="product-price">
+        <span class="old-price">12990 грн.</span>
+        <span class="new-price">6590 грн.</span>
+      </p>
+    </div>
+    <div class="product-card">
+      <div class="product-image">
+        <img src="кросівки 3.jpg" alt="Кросівки чол/жін Adidas X Bad Bunny Response Cl Beige">
+        <button class="add-to-favorites"></button>
+      </div>
+      <h3 class="product-title">Кросівки чол/жін Adidas X Bad Bunny Response Cl Beige</h3>
+      <p class="product-size">ID0780</p>
+      <p class="product-price">
+        <span class="old-price">7490 грн.</span>
+        <span class="new-price">4950 грн.</span>
+      </p>
+      <p class="availability закінчується">Закінчується</p>
+    </div>
+  </div>
+  <div class="button-container">
+    <a href="#" class="view-all-button">Більше взуття? Тисни ТУТ</a>
+  </div>
+</section>
+</section>
+ <style>
+    body {
+        <meta charset="UTF-8">
+    <title>Форма зворотнього зв'язку</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .booking-section {
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .booking-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+            outline: none;
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        input[type="date"], input[type="time"] {
+            color: #555;
+        }
+
+        @media (max-width: 600px) {
+            .booking-container {
+                padding: 20px;
+            }
+
+            .form-input {
+                font-size: 15px;
+            }
+        }
+
+        .submit-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .submit-btn:active {
+            background-color: #00408a;
+        }
+    </style>
+</head>
+<body>
+    <section id="booking" class="booking-section">
+        <div class="booking-container">
+            <form>
+                <div class="form-group">
+                    <label for="firstName" class="form-label">Ім'я*</label>
+                    <input type="text" id="firstName" placeholder="Введіть ваше ім'я" required class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">Email*</label>
+                    <input type="email" id="email" placeholder="Введіть ваш email" required class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" class="form-label">Телефон*</label>
+                    <input type="tel" id="phone" placeholder="Введіть ваш телефон" required class="form-input">
+
+                <div class="form-group">
+                    <label for="notes" class="form-label">Повідомлення</label>
+                    <textarea id="notes" class="form-input form-textarea" placeholder="Напишіть щось..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Надіслати</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
+<style>
+.warm-discounts {
+  padding: 20px;
+  text-align: center;
+  background-color: #f0f8e7;
+}
+
+.section-title {
+  font-size: 24px;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.product-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  padding-bottom: 10px;
+  position: relative;
+  
+}
+
+.product-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-image img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+  height: 100%;
+}
+
+.add-to-favorites {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  
+}
+
+
+.product-title {
+  font-size: 18px;
+  color: #003366;
+  margin: 10px 15px;
+  text-align: left;
+}
+
+.product-size {
+  font-size: 14px;
+  color: #666;
+  margin: 0 15px;
+  text-align: left;
+}
+
+.product-price {
+  margin: 10px 15px;
+  text-align: left;
+}
+
+.old-price {
+  font-size: 16px;
+  color: #888;
+  text-decoration: line-through;
+  margin-right: 5px;
+}
+
+.new-price {
+  font-size: 20px;
+  color: #FF6600;
+  font-weight: bold;
+}
+
+.availability {
+  font-size: 12px;
+  color: #ff0000;
+  margin: 0 15px;
+  text-align: left;
+}
+.немає-в-наявності{
+  color: #ff0000;
+}
+
+.закінчується{
+  color: #ff0000;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.view-all-button {
+  background-color: #0066cc;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+}
+.view-all-button:hover{
+  background-color: #004080;
+}
+</style>
+ <title>Відгуки та корисна інформація</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-semibold text-gray-800 mb-8">Відгуки та корисна інформація</h1>
+
+    <div class="w-full max-w-3xl space-y-6">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900">Ян Кульчицький</h2>
+                    <p class="text-gray-600 mt-1">Чудовий сервіс, швидка доставка, і найголовніше - якісний та оригінальний товар!</p>
+                </div>
+                <span class="text-sm text-gray-500">10.06.2024</span>
+            </div>
+            <div class="flex items-center text-gray-600">
+                <button class="flex items-center mr-4 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="ml-1">1</span>
+                </button>
+                <button class="flex items-center focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 transform rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="ml-1">0</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900">Вадим Гребенюк</h2>
+                    <p class="text-gray-600 mt-1">Дуже задоволений покупкою у вашому магазині! Великий вибір, швидка доставка та приємне обслуговування. Буду замовляти ще!</p>
+                </div>
+                <span class="text-sm text-gray-500">09.12.2002</span>
+            </div>
+            <div class="flex items-center justify-between text-gray-600">
+                <div class="flex items-center">
+                    <button class="flex items-center mr-4 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-1">0</span>
+                    </button>
+                    <button class="flex items-center focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 transform rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-1">0</span>
+                    </button>
+                </div>
+                <button class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-md shadow-sm transition duration-200 ease-in-out">
+                    Створити скаргу
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900">Олег Штурин</h2>
+                    <p class="text-gray-600 mt-1">Замовляв у вашому магазині вперше. І все пройшло ідеально! Швидка доставка, якісний товар і приємне обслуговування. Рекомендую!</p>
+                </div>
+                <span class="text-sm text-gray-500">25.02.2024</span>
+            </div>
+            <div class="flex items-center justify-between text-gray-600">
+                <div class="flex items-center">
+                    <button class="flex items-center mr-4 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-1">2</span>
+                    </button>
+                    <button class="flex items-center focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 transform rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-1">0</span>
+                    </button>
+                </div>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm transition duration-200 ease-in-out">
+                    Повернення товару/коштів
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900">Володимир Дамецький</h2>
+                    <p class="text-gray-600 mt-1">Крутий магазин! Все прийшло швидко, товар оригінал, а обслуговування на найвищому рівні.</p>
+                </div>
+                <span class="text-sm text-gray-500">07.03.2025</span>
+            </div>
+            <div class="flex items-center justify-between text-gray-600">
+                <div class="flex items-center">
+                    <button class="flex items-center mr-4 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-1">1</span>
+                    </button>
+                    <button class="flex items-center focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 transform rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-1">0</span>
+                    </button>
+                </div>
+                <button class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md shadow-sm transition duration-200 ease-in-out">
+                    Дошка оголошень
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <button class="mt-8 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-200 ease-in-out">
+        Додати відгук
+    </button>
+</body>
+</html>
+
+</section>
+<style>
+.reviews-section {
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.section-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.review-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.review-author {
+  font-size: 16px;
+  font-weight: bold;
+  color: #003399;
+}
+
+.review-date {
+  font-size: 12px;
+  color: #888;
+}
+
+.review-text {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.review-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.like-button,
+.dislike-button {
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.like-button {
+  color: #008000;
+}
+
+.dislike-button {
+  color: #FF0000;
+}
+
+.like-count,
+.dislike-count {
+  font-size: 14px;
+  color: #555;
+}
+.complaint-button, .return-button, .ads-button{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+}
+.complaint-button{
+  background-color: #d9534f;
+}
+.return-button{
+  background-color: #003399;
+}
+.ads-button{
+  background-color: #808080;
+}
+.review-card:nth-child(2) .complaint-button{
+  background-color: #d9534f;
+}
+.review-card:nth-child(3) .return-button{
+  background-color: #003399;
+}
+.review-card:nth-child(4) .ads-button{
+    background-color: #808080;
+}
+.add-review-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.add-review-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-review-button:hover {
+  background-color: #45a049;
+}
+</style>
+<footer class="site-footer">
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h3>Каталог</h3>
+                <ul>
+                    <li><a href="#">Новинки</a></li>
+                    <li><a href="#">Одяг</a></li>
+                    <li><a href="#">Взуття</a></li>
+                    <li><a href="#">Рюкзаки та сумки</a></li>
+                    <li><a href="#">Аксесуари</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Інформація</h3>
+                <ul>
+                    <li><a href="#">Про нас</a></li>
+                    <li><a href="#">Доставка, оплата, повернення</a></li>
+                    <li><a href="#">Відгуки</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Співробітництво</h3>
+                <ul>
+                    <li><a href="#">Політика конфіденційності</a></li>
+                    <li><a href="#">Договір публічної оферти</a></li>
+                </ul>
+                <div class="payment-methods">
+                    <img src="visa.jpg" alt="Visa">
+                    </div>
+            </div>
+            <div class="footer-column">
+                <h3>Соціальні мережі</h3>
+                <div class="social-links">
+                    <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                </div>
+                <div class="app-links">
+                    <a href="#" title="Instagram"><img src="insta.jpg" alt="Instagram"></a>
+                    <a href="#" title="Telegram"><img src="telega.jpg" alt="Telegram"></a>
+                    <a href="#" title="Facebook"><img src="facebook.png" alt="Facebook"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024-2025 KastetShop</p>
+        </div>
+    </footer>
+</body>
+</html>
